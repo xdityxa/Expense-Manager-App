@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import './transaction.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -29,6 +30,11 @@ class MyHomePage extends StatelessWidget {
       date: DateTime.now(),
     ),
   ];
+  // String titleInput;
+  // String amountInput;
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -47,6 +53,30 @@ class MyHomePage extends StatelessWidget {
               child: Text('Chart!'),
               elevation: 5,
             ),
+          ),
+          Card(
+            elevation: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                // onChanged: (val) => titleInput = val,
+                controller: titleController,
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                // onChanged: (val) => amountInput = val,
+                controller: amountController,
+              ),
+              FlatButton(
+                onPressed: (){
+                  print(titleController.text);
+                },
+                child: Text('Add Transaction'),
+                textColor: Colors.purple,
+              )
+            ]),
           ),
           Column(
             children: transactions.map((tx) {
@@ -83,7 +113,7 @@ class MyHomePage extends StatelessWidget {
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
-                          ),
+                        ),
                         Text(
                           DateFormat.yMMMd().format(tx.date),
                           style: TextStyle(
