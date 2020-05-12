@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import '../models/transaction.dart';
 
 class TransactionItem extends StatelessWidget {
   const TransactionItem({
     Key key,
-    @required this.transactions,
+    @required this.transaction,
     @required this.deleteTx,
   }) : super(key: key);
 
-  final List<Transaction> transactions;
+  final Transaction transaction;
   final Function deleteTx;
 
   @override
@@ -25,28 +27,28 @@ class TransactionItem extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(6),
             child: FittedBox(
-              child: Text('\$${transactions[index].amount}'),
+              child: Text('\$${transaction.amount}'),
             ),
           ),
         ),
         title: Text(
-          transactions[index].title,
+          transaction.title,
           style: Theme.of(context).textTheme.title,
         ),
         subtitle: Text(
-          DateFormat.yMMMd().format(transactions[index].date),
+          DateFormat.yMMMd().format(transaction.date),
         ),
         trailing: MediaQuery.of(context).size.width > 460
             ? FlatButton.icon(
                 icon: Icon(Icons.delete),
                 label: Text('Delete'),
                 textColor: Theme.of(context).errorColor,
-                onPressed: () => deleteTx(transactions[index].id),
+                onPressed: () => deleteTx(transaction.id),
               )
             : IconButton(
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).errorColor,
-                onPressed: () => deleteTx(transactions[index].id),
+                onPressed: () => deleteTx(transaction.id),
               ),
       ),
     );
